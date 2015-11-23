@@ -1,0 +1,69 @@
+//
+//  main.cpp
+//  Kattis
+//
+//  Created by Zimu Wang on 10/17/15.
+//  Copyright (c) 2015 Zimu Wang. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <list>
+#include <deque>
+#include <stack>
+#include <cmath>
+#include <map>
+#include <set>
+#include <sstream>
+#include <vector>
+#include <iomanip>
+#include <fstream>
+#include <regex.h>
+#include <queue>
+#include <istream>
+#include <cstring>
+#include <bitset>
+using namespace std;
+
+int main()
+{
+    string password;
+    string input;
+    cin>>password>>input;
+    int length1=password.length();
+    int length2=input.length();
+    int i,j=0;
+    bool indicator=false;
+    while (i<length1 && j<length2 &&indicator==false)
+    {
+        if (password[i]==input[j])
+        {
+            i++;
+            j++;
+            
+        }
+        else
+        {
+            for (int k=i+1;k<length1;k++)
+                if (input[j]==password[k])
+                {
+                    
+                    indicator =true;
+                    break;
+                };
+            if (indicator==false)
+                j++;
+        }
+    };
+    if (indicator==false && i==length1)
+        cout<<"PASS"<<endl;
+    else
+        cout<<"FAIL"<<endl;
+    return 0;
+    
+}
+
+
+
