@@ -1,0 +1,93 @@
+Dance Recital
+Problem C
+Preprocessed bitset + complete search
+//
+//  main.cpp
+//  Kattis
+//
+//  Created by Zimu Wang on 10/17/15.
+//  Copyright (c) 2015 Zimu Wang. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <list>
+#include <deque>
+#include <stack>
+#include <cmath>
+#include <map>
+#include <set>
+#include <sstream>
+#include <vector>
+#include <iomanip>
+#include <fstream>
+#include <regex.h>
+#include <queue>
+#include <istream>
+#include <cstring>
+#include <bitset>
+using namespace std;
+
+int main()
+{
+    int number;
+    cin>>number;
+    vector<int> permut;
+    char input;
+    vector<bitset<26>> recitals;
+    recitals.resize(number);
+    string recital;
+    int collide[number][number];
+    for (int i=0;i<number;i++)
+    {
+        cin>>recital;
+        for (int j=0;j<recital.length();j++)
+            recitals[i][int(recital[j])-65]=1;
+        
+        permut.push_back(i);
+        
+    };
+    bitset<26> helper;
+    int count;
+    for (int i=0;i<number;i++)
+    {
+        
+        for (int k=i+1;k<number;k++)
+        {
+            helper = recitals[i]&recitals[k];
+            count=0;
+            
+            for (int j=0;j<26;j++)
+                if (helper[j] == 1)
+                    count++;
+            collide[i][k] = collide[k][i]=count;
+        };
+    };
+    
+    
+    int answer=30000;
+    
+    do
+    {
+        
+        count=0;
+        for (int i=0;i<number-1;i++)
+        {
+            
+            count+=collide[permut[i]][permut[i+1]];
+            
+        };
+       
+        if (count<answer)
+            answer=count;
+    } while (next_permutation(permut.begin(),permut.end()));
+    cout<<answer;
+    return 0;
+    
+    
+}
+
+
+
