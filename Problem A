@@ -1,0 +1,82 @@
+Problem A
+ACM Contest Scoring
+//
+//  main.cpp
+//  Kattis
+//
+//  Created by Zimu Wang on 10/17/15.
+//  Copyright (c) 2015 Zimu Wang. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <list>
+#include <deque>
+#include <stack>
+#include <cmath>
+#include <map>
+#include <set>
+#include <sstream>
+#include <vector>
+#include <iomanip>
+#include <fstream>
+#include <regex.h>
+#include <queue>
+#include <istream>
+using namespace std;
+
+int main()
+{
+    vector<int> minutes;
+    vector<string> question;
+    string input;
+    vector<int> results;
+    vector<bool> visited;
+    cin>>input;
+    int answer=0;
+    int correct=0;
+    while (input!="-1")
+    {
+        minutes.push_back(stoi(input));
+        cin>>input;
+        question.push_back(input);
+        cin>>input;
+        if (input=="right")
+            results.push_back(1);
+        else
+            results.push_back(0);
+        cin>>input;
+        visited.push_back(false);
+    };
+    int count=0;
+    for (int i=0;i<minutes.size();i++)
+    {
+        count=0;
+        for (int j=i;j<minutes.size();j++)
+        {
+            if (visited[j]==false)
+            if (question[j] == question[i])
+                if (results[j]==0)
+                    count++;
+                else
+                {
+                    answer += minutes[j]+count*20;
+                   
+                    correct++;
+                    j=minutes.size();
+                };
+            
+        };
+        for (int j=i;j<minutes.size();j++)
+            if (question[j]==question[i])
+                visited[j]=true;
+    }
+    cout<<correct<<' '<<answer<<endl;
+    return 0;
+    
+}
+
+
+
