@@ -1,0 +1,74 @@
+//
+//  main.cpp
+//  Kattis
+//
+//  Created by Zimu Wang on 10/17/15.
+//  Copyright (c) 2015 Zimu Wang. All rights reserved.
+//
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <list>
+#include <deque>
+#include <stack>
+#include <cmath>
+#include <map>
+#include <set>
+#include <sstream>
+#include <vector>
+#include <iomanip>
+#include <fstream>
+#include <regex.h>
+#include <queue>
+#include <istream>
+#include <cstring>
+#include <bitset>
+#include <unordered_set>
+using namespace std;
+
+
+int main()
+{
+    int cases;
+    int width;
+    cin>> cases >> width;
+    long dp[cases+1];
+    int heights[cases];
+    int widths[cases];
+    for (int i=0;i<cases;i++)
+    {
+        cin>> widths[i] >> heights[i];
+        dp[i] = 100000000;
+    };
+    dp[cases] = 100000000;
+    
+    dp[0] = 0;
+    int count=0;
+    int index;
+    int high;
+    for (int i=0;i<cases;i++)
+    {
+        
+        count=widths[i];
+        index=i;
+        high=heights[i];
+        dp[i+1] = min(dp[i+1],dp[i]+high);
+        
+        while (index>=0 && count <= width)
+        {
+            
+            high = max(high,heights[index]);
+            
+            dp[i+1] = min(dp[i+1],dp[index]+high);
+            index--;
+            count+=widths[index];
+        };
+        
+    };
+    for (int i=0;i<=cases;i++)
+        cout<<dp[i]<<endl;
+    
+    
+}
